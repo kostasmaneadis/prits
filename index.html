@@ -6,28 +6,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prits Online</title>
     <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+            /* Added font family for better readability */
+        }
 
+        .dark-mode {
+            background-color: black;
+            color: white;
+        }
+
+        .dark-mode svg {
+            filter: invert(1);
+        }
+
+        .switch {
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            width: 60px;
+            height: 34px;
+            background-color: #ccc;
+            border-radius: 34px;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: gray;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+
+        .dark-mode-toggle {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3em;
+        }
+
+        .dark-mode-toggle div {
+            margin-left: 1em;
+        }
+
+        .container {
+            display: flex;
+            /* justify-content: center; */
+            align-items: center;
+            width: 100%;
+            padding: 0 20px;
+
+        }
+
+        .box {
+            display: inline-block;
+            width: 48%;
+            margin: 1%;
+            height: 100px;
+            justify-self: center;
+        }
+        th {
+            align-items: center;
+        }
     </style>
 </head>
 
 <body>
+    <div style="display: grid;">
+      
+        <table style="width: 10em;">
+            <tr>
+                <th>
+                    <label class="switch">
+                        <input type="checkbox" onchange="toggleDarkMode(this)">
+                        <span class="slider round"></span>
+                    </label>
+                </th>
+                <th style="padding-top: 1em;">Dark Mode </th>
+            </tr>
+        </table>
+        <div>
+            <?xml version="1.0" standalone="no"?>
+            <!DOCTYPE svg
+                PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="200.000000pt" height="200.000000pt"
+                viewBox="0 0 200.000000 200.000000" preserveAspectRatio="xMidYMid meet">
 
-    <div>
-        <?xml version="1.0" standalone="no"?>
-        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="200.000000pt" height="200.000000pt"
-            viewBox="0 0 200.000000 200.000000" preserveAspectRatio="xMidYMid meet">
-
-            <g transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                <path d="M1494 1926 c-217 -101 -179 -420 57 -467 152 -30 289 86 289 243 -1
+                <g transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                    <path d="M1494 1926 c-217 -101 -179 -420 57 -467 152 -30 289 86 289 243 -1
 80 -24 132 -83 184 -77 68 -172 82 -263 40z" />
-                <path d="M1165 1516 c-16 -7 -47 -31 -67 -54 -82 -91 -322 -476 -333 -533 -9
+                    <path d="M1165 1516 c-16 -7 -47 -31 -67 -54 -82 -91 -322 -476 -333 -533 -9
 -46 9 -110 40 -147 14 -17 106 -72 220 -132 107 -57 195 -107 195 -111 0 -4
 -28 -83 -61 -175 -71 -193 -73 -229 -20 -276 37 -33 69 -42 114 -34 62 12 81
 45 174 305 115 322 121 301 -130 435 l-97 52 61 89 62 88 21 -29 c34 -49 159
 -175 188 -190 76 -40 157 9 158 94 0 39 -6 49 -75 123 -98 105 -100 109 -124
 215 -11 50 -29 111 -41 137 -57 121 -186 186 -285 143z" />
-                <path d="M324 1011 c-47 -21 -78 -60 -89 -111 -4 -19 -20 -50 -36 -67 -55 -63
+                    <path d="M324 1011 c-47 -21 -78 -60 -89 -111 -4 -19 -20 -50 -36 -67 -55 -63
 -58 -154 -8 -225 21 -28 93 -68 125 -68 10 0 25 -9 31 -20 22 -35 71 -53 130
 -48 46 4 60 10 90 41 31 30 37 44 41 92 l5 57 63 29 c64 28 77 46 49 69 -13
 10 -36 4 -133 -37 -104 -43 -117 -51 -117 -73 0 -23 4 -25 38 -23 30 2 37 -1
@@ -36,13 +136,30 @@
 65 32 -25 33 -37 4 -41 -29 -4 -38 -45 -12 -55 17 -6 188 22 232 38 17 7 22
 15 20 32 -2 18 -9 22 -38 22 -19 0 -51 -4 -71 -8 -35 -7 -38 -5 -58 28 -21 36
 -86 75 -126 75 -11 0 -38 -9 -61 -19z" />
-                <path d="M450 786 c-79 -26 -96 -35 -98 -54 -5 -34 18 -36 114 -6 95 29 114
+                    <path d="M450 786 c-79 -26 -96 -35 -98 -54 -5 -34 18 -36 114 -6 95 29 114
 39 114 60 0 32 -35 32 -130 0z" />
-            </g>
-        </svg>
-
+                </g>
+            </svg>
+        </div>
     </div>
 
+    <audio id="darkModeAudio" src="sound.mp3"></audio>
+
+    <script>
+        function toggleDarkMode(checkbox) {
+            const body = document.body;
+            const audio = document.getElementById('darkModeAudio');
+
+            body.classList.toggle('dark-mode', checkbox.checked);
+
+            if (checkbox.checked) {
+                audio.play();
+            } else {
+                audio.pause();
+                // audio.currentTime = 0; // Reset the audio to the beginning
+            }
+        }
+    </script>
 </body>
 
 </html>
